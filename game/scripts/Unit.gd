@@ -1,0 +1,191 @@
+
+extends Area2D
+
+signal target_found(target)
+signal ready
+
+export var shoot_bullets = true
+export (float) var bullet_speed = 10
+export (float) var damage = 1
+export (float) var total_health = 10
+export (float) var life_time = 10
+export (float) var die_delay = 0
+export (float) var hit_rate = 1
+export var wait_for_game = false
+
+
+onready var game = get_node("/root/Game")
+onready var hit_zone = get_node("Visual/HitZone")
+onready var hit_timer = get_node("HitTimer")
+onready var health_bar = get_node("Visual/HealthBar")
+
+var show_hit_zone = false
+var dragging = false
+var health
+
+# public
+var owner
+var card
+var lifes = 0
+var rotated = false
+
+
+func _ready():
+
+	health = total_health
+	health_bar.set_total_life(total_health)
+	health_bar.set_missed_life(0)
+	health_bar.set_damage_value(0)
+	hit_timer.set_wait_time(hit_rate)
+
+	connect("body_enter", self, "bullet_hit")
+	
+	if wait_for_game:
+		yield(game, "ready")
+	
+	if show_hit_zone:
+		hit_zone.show()
+	
+	call_deferred("die_process")
+	if shoot_bullets:
+		call_deferred("shoot_process")
+	animate_creation()
+	emit_signal("ready")
+
+func animate_creation():
+	var tween = Tween.new()
+	add_child(tween)
+	tween.start()
+	var sprite = get_node("Visual/Sprite")
+	var from = sprite.get_scale()
+	var to = sprite.get_scale() * 1.4
+	var time = 0.5
+	tween.interpolate_property(sprite, "transform/scale", from, to, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	yield(tween, "tween_complete")
+	tween.interpolate_property(sprite, "transform/scale", to, from, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	
+	
+
+func _input_event(viewport, event, shape_idx):
+	if dragging:
+		return
+	
+	if rotated:
+		return
+	
+	if event.type == InputEvent.MOUSE_BUTTON && event.is_pressed():
+		set_dragging(true)
+		return
+		
+func _input(event):
+	if !dragging:
+		return
+	
+	if event.type == InputEvent.MOUSE_MOTION:
+		look_at(event.pos)
+		game.table.emit_signal("unit_rotated", get_cell().get_index(), get_rot())
+		rotated = true
+	elif event.type == InputEvent.MOUSE_BUTTON && !event.is_pressed():
+		set_dragging(false)
+
+func bullet_hit(bullet):
+	#print("take damage " + str(bullet) + ", " + str(bullet.get("damage")))
+	var dmg = bullet.damage
+	bullet.call_deferred("remove")
+	take_damage(dmg)
+
+func take_damage(damage):
+	health -= damage
+	health_bar.add_missed_life(damage)
+	if health <= 0:
+		call_deferred("remove")
+
+func remove():
+	var p = get_parent()
+	p.remove_child(self)
+	print("Parent: " + str(p) + ", child count: " + str(p.get_child_count()))
+
+func get_cell():
+	return get_parent().get_parent()
+
+func get_table_pos():
+	return get_cell().get_pos()
+	
+func set_dragging(value):
+	if value && !shoot_bullets:
+		return
+	dragging = value
+	hit_zone.set_hidden(!value)
+	set_process_input(value)
+	if rotated && !value:
+		game.table.emit_signal("rotation_complete", get_cell().get_index())
+
+func _fixed_process(delta):
+	var request = Physics2DShapeQueryParameters.new()
+	if get_cell().side == "red":
+		request.set_layer_mask(2)
+	else:
+		request.set_layer_mask(1)
+	request.set_object_type_mask(Physics2DDirectSpaceState.TYPE_MASK_AREA)
+	var shape = ConvexPolygonShape2D.new()
+	var poly = get_node("Visual/HitZone")
+	shape.set_points(poly.get_polygon())
+	#var shape = CircleShape2D.new()
+	#shape.set_radius(500)
+	request.set_shape(shape)
+	request.set_transform(poly.get_global_transform())
+	var result = get_world_2d().get_direct_space_state().intersect_shape(request)
+	var nearest = null
+	for result_item in result:
+		print("Checking " + str(result_item["collider"].get_path()))
+
+		if !(result_item["collider"] extends get_script()):
+			continue
+		var pos = result_item["collider"].get_table_pos()
+		if nearest == null:
+			nearest = pos
+		elif get_table_pos().distance_to(pos) < get_table_pos().distance_to(nearest):
+			nearest = pos
+	
+	#if nearest != null:
+	#	print("Fount at fixed: " + str(nearest.get_path()))
+
+
+	set_fixed_process(false)
+	emit_signal("target_found", nearest)
+	
+func shoot_process():
+	while true:
+		yield(hit_timer, "timeout")
+		if dragging:
+			continue
+		var bullet = preload("../units/bullet.tscn").instance()
+		set_fixed_process(true)
+		var target = yield(self, "target_found")
+
+		if target == null:
+			continue
+
+
+		var direction = (target - get_table_pos()).normalized()
+		bullet.set_collision_mask(get_collision_mask())
+		#bullet.set_layer_mask(get_layer_mask())
+		game.table.add_child(bullet)
+		bullet.set_pos(get_cell().get_pos())
+		bullet.set_rot(get_rot())
+		bullet.set_scale(Vector2(2,2))
+		bullet.damage = damage
+		var v = direction * bullet_speed
+		bullet.set_linear_velocity(v)
+		game.table.emit_signal("unit_shoot", get_cell().get_index(), v)
+		
+
+func die_process():
+	var timer = Timer.new()
+	add_child(timer)
+	timer.set_wait_time(1)
+	timer.set_one_shot(false)
+	timer.start()
+	while true:
+		yield(timer, "timeout")
+		take_damage(total_health/life_time)

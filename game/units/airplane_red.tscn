@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://units/default.tscn" type="PackedScene" id=1]
+[ext_resource path="res://units/textures/airplane_red.atex" type="Texture" id=2]
+
+[node name="Area2D" instance=ExtResource( 1 )]
+
+bullet_speed = 500.0
+damage = 36.0
+total_health = 200.0
+life_time = 30.0
+hit_rate = 0.75
+
+[node name="HitZone" parent="Visual"]
+
+polygon = Vector2Array( -400, -960, -32, 0, 32, 0, 400, -960 )
+
+[node name="Sprite" parent="Visual"]
+
+texture = ExtResource( 2 )
+
+

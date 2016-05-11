@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://units/default.tscn" type="PackedScene" id=1]
+[ext_resource path="res://units/textures/wall_red.atex" type="Texture" id=2]
+
+[node name="Area2D" instance=ExtResource( 1 )]
+
+shoot_bullets = false
+total_health = 700.0
+life_time = 30.0
+
+[node name="Sprite" parent="Visual"]
+
+texture = ExtResource( 2 )
+
+

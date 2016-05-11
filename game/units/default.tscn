@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://scripts/Unit.gd" type="Script" id=1]
+[ext_resource path="res://units/textures/soldier.atex" type="Texture" id=2]
+[ext_resource path="res://health_bar.tscn" type="PackedScene" id=3]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 40, 40, -40, 40, -40, -40, 40, -40 )
+
+[node name="Area2D" type="Area2D"]
+
+transform/rot = 180.0
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/layers = 0
+collision/mask = 0
+script/script = ExtResource( 1 )
+shoot_bullets = true
+bullet_speed = 10
+damage = 1
+total_health = 10
+life_time = 10
+die_delay = 0
+hit_rate = 1
+wait_for_game = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+build_mode = 0
+polygon = Vector2Array( 40, -40, -40, -40, -40, 40, 40, 40 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="Visual" type="Node2D" parent="."]
+
+transform/rot = 180.0
+
+[node name="HitZone" type="Polygon2D" parent="Visual"]
+
+visibility/visible = false
+polygon = Vector2Array( -31.9998, -960, -32, 0, 32, 0, 32.0001, -960 )
+uv = Vector2Array(  )
+color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+[node name="Sprite" type="Sprite" parent="Visual"]
+
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+
+[node name="HealthBar" parent="Visual" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 7.62939e-06, -40 )
+transform/scale = Vector2( 1.5, 1.5 )
+
+[node name="HitTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.3
+one_shot = false
+autostart = true
+
+

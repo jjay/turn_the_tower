@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://units/tank_red.tscn" type="PackedScene" id=1]
+[ext_resource path="res://units/textures/tank_blue.atex" type="Texture" id=2]
+
+[node name="Area2D" instance=ExtResource( 1 )]
+
+[node name="CollisionPolygon2D" parent="."]
+
+transform/rot = 0.0
+build_mode = 0
+polygon = Vector2Array( 40, -40, -40, -40, -40, 40, 40, 40 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+script/script = null
+
+[node name="Visual" parent="."]
+
+script/script = null
+
+[node name="HitZone" parent="Visual"]
+
+transform/rot = 0.0
+uv = Vector2Array(  )
+color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+script/script = null
+
+[node name="Sprite" parent="Visual"]
+
+transform/rot = 0.0
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+script/script = null
+
+[node name="HealthBar" parent="Visual"]
+
+transform/pos = Vector2( 7.62939e-06, -40 )
+transform/rot = 0.0
+transform/scale = Vector2( 1.5, 1.5 )
+
+[node name="HitTimer" parent="."]
+
+process_mode = 1
+wait_time = 0.3
+one_shot = false
+autostart = true
+script/script = null
+
+
