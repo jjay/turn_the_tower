@@ -18,6 +18,7 @@ onready var game = get_node("/root/Game")
 onready var hit_zone = get_node("Visual/HitZone")
 onready var hit_timer = get_node("HitTimer")
 onready var health_bar = get_node("Visual/HealthBar")
+onready var animation = get_node ("Visual/Sprite/AnimationPlayer")
 
 var show_hit_zone = false
 var dragging = false
@@ -37,6 +38,11 @@ func _ready():
 	health_bar.set_missed_life(0)
 	health_bar.set_damage_value(0)
 	hit_timer.set_wait_time(hit_rate)
+	
+	if shoot_bullets:
+		animation.play("@UnitAbleToRotate")
+	else:
+		animation.play("@UnitIdle")
 
 	connect("body_enter", self, "bullet_hit")
 	
@@ -86,6 +92,8 @@ func _input(event):
 		game.table.emit_signal("unit_rotated", get_cell().get_index(), get_rot())
 		rotated = true
 	elif event.type == InputEvent.MOUSE_BUTTON && !event.is_pressed():
+		if shoot_bullets:
+			animation.play("@UnitIdle")
 		set_dragging(false)
 
 func bullet_hit(bullet):
