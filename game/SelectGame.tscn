@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scripts/LoadLevel.gd" type="Script" id=1]
+[ext_resource path="res://textures/buttons.tex" type="Texture" id=2]
+[ext_resource path="res://default_label.tscn" type="PackedScene" id=3]
+
+[node name="SelectGame" type="Panel"]
+
+margin/right = 648.0
+margin/bottom = 1160.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+[node name="Button" type="Button" parent="."]
+
+margin/left = 96.0
+margin/top = 128.0
+margin/right = 552.0
+margin/bottom = 258.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+flat = false
+script/script = ExtResource( 1 )
+level = "res://LocalGame.tscn"
+
+[node name="Sprite" type="Sprite" parent="Button"]
+
+transform/pos = Vector2( 64, 64 )
+texture = ExtResource( 2 )
+vframes = 3
+hframes = 4
+
+[node name="Label" parent="Button" instance=ExtResource( 3 )]
+
+margin/left = 128.0
+margin/top = 16.0
+margin/right = 451.0
+margin/bottom = 121.0
+text = "Local Game"
+align = 1
+valign = 1
+
+[node name="Button1" type="Button" parent="."]
+
+margin/left = 96.0
+margin/top = 304.0
+margin/right = 552.0
+margin/bottom = 434.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+flat = false
+script/script = ExtResource( 1 )
+level = "res://NetworkGame.tscn"
+
+[node name="Sprite" type="Sprite" parent="Button1"]
+
+transform/pos = Vector2( 64, 64 )
+texture = ExtResource( 2 )
+vframes = 3
+hframes = 4
+
+[node name="Label" parent="Button1" instance=ExtResource( 3 )]
+
+margin/left = 128.0
+margin/top = 16.0
+margin/right = 451.0
+margin/bottom = 121.0
+text = "Network Game"
+align = 1
+valign = 1
+
+

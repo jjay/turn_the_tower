@@ -17,6 +17,9 @@ autostart = false
 
 [node name="Coins" type="Node2D" parent="."]
 
+transform/pos = Vector2( -270, 0 )
+__meta__ = { "_editor_collapsed":true }
+
 [node name="Coin" parent="Coins" instance=ExtResource( 2 )]
 
 [node name="Coin1" parent="Coins" instance=ExtResource( 2 )]

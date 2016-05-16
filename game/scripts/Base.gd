@@ -7,3 +7,6 @@ func remove():
 
 func get_table_pos():
 	return get_pos()
+
+func update_texture():
+	pass

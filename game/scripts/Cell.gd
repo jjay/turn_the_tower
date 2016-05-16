@@ -10,11 +10,11 @@ onready var preview = get_node("Preview")
 
 export (int, FLAGS) var unit_collision_layers
 export (int, FLAGS) var unit_collision_mask
-
 export (String, "red", "blue") var side
 
+var hovered_card
+
 func _ready():
-	yield(game, "ready")
 	add_to_group(side + "_cell")
 	
 func _input_event(viewport, event, shape_idx):
@@ -38,19 +38,27 @@ func get_unit():
 	return null
 
 func start_hover(card):
-	var base = game.table.get_node("BlueBase")
-	var path = "res://units/" + card.unit_name + "_red.tscn"
+	hovered_card = card
+	var path = "res://units/" + card.unit_name + ".tscn"
 	var unit = load(path).instance()
 	unit.show_hit_zone = unit.shoot_bullets
 	unit.shoot_bullets = false
+	unit.set_unit_name(card.unit_name)
+	unit.set_side(side)
 	
 	preview.add_child(unit)
+	var base
+	if side == "red":
+		base = game.table.get_node("BlueBase")
+	else:
+		base = game.table.get_node("RedBase")
 	if base != null:
 		unit.look_at(base.get_global_pos())
 	
-	print("Hovering " + str(card.get_path()))
+	print("Hovering " + str(card.get_path()) + ", " + str(base))
 
 func stop_hover(card):
+	hovered_card = null
 	while preview.get_child_count() > 0:
 		print("Removing preview child")
 		preview.remove_child(preview.get_child(0))
