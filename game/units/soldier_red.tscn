@@ -5,6 +5,7 @@
 
 [node name="Area2D" instance=ExtResource( 1 )]
 
+linear_damp = 0.1
 bullet_speed = 500.0
 damage = 50.0
 total_health = 120.0
@@ -12,10 +13,14 @@ life_time = 30.0
 
 [node name="HitZone" parent="Visual"]
 
-polygon = Vector2Array( -120, -280, -32, 0, 32, 0, 120, -280, 110, -290, 90.0001, -300, 60.0001, -310, 20.0001, -320, 5.59506e-05, -320, -19.9999, -320, -59.9999, -310, -89.9999, -300, -110, -290 )
+polygon = Vector2Array( -128, -160, -32, 0, 32, 0, 128, -160, 96, -224, 32, -256, -32, -256, -96, -224 )
 
 [node name="Sprite" parent="Visual"]
 
 texture = ExtResource( 2 )
+
+[node name="HitTimer" parent="."]
+
+wait_time = 0.3
 
 
