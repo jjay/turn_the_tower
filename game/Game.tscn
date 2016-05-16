@@ -37,6 +37,7 @@ start_coins = 10
 
 [node name="GUI" parent="." instance=ExtResource( 7 )]
 
+visibility/visible = false
 linear_damp = 0.1
 
 

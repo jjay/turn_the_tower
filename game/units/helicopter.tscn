@@ -5,7 +5,6 @@
 
 [node name="Area2D" instance=ExtResource( 1 )]
 
-bullet_speed = 500.0
 damage = 50.0
 total_health = 240.0
 life_time = 30.0
@@ -13,7 +12,7 @@ hit_rate = 1.25
 
 [node name="HitZone" parent="Visual"]
 
-polygon = Vector2Array( -128, -256, -96, -160, -32, -192, 32, -192, 96, -160, 128, -256, 96.0001, -288, 5.59506e-005, -320, -95.9999, -288 )
+polygon = Vector2Array( -63.9999, -336, -16, -2.79753e-006, 16, 2.79753e-006, 64.0001, -336, 64.0001, -384, 48.0001, -416, 7.55333e-005, -432, -47.9999, -416, -63.9999, -384 )
 
 [node name="Sprite" parent="Visual"]
 
