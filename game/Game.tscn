@@ -33,8 +33,10 @@ server_port = 1234
 [node name="Cache" parent="." instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 48, 1056 )
-start_coins = 10
+start_coins = 3
 
 [node name="GUI" parent="." instance=ExtResource( 7 )]
+
+linear_damp = 0.1
 
 
