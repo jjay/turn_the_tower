@@ -40,8 +40,10 @@ func _ready():
 	health_bar.set_missed_life(0)
 	health_bar.set_damage_value(0)
 	hit_timer.set_wait_time(hit_rate)
+	
 
 	connect("body_enter", self, "bullet_hit")
+	update_texture()
 	
 	if wait_for_game:
 		yield(game, "ready")
@@ -56,13 +58,14 @@ func _ready():
 	emit_signal("ready")
 
 func set_side(side):
-	var tex = load("res://units/textures/" + unit_name + "_" + side + ".atex")
-	sprite.set_texture(tex)
 	unit_side = side
 
 func set_unit_name(name):
 	unit_name = name
-	
+
+func update_texture():
+	var tex = load("res://units/textures/" + unit_name + "_" + unit_side + ".atex")
+	sprite.set_texture(tex)
 
 func animate_creation():
 	var tween = Tween.new()

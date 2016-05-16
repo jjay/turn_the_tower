@@ -59,6 +59,6 @@ func set_loser(side):
 	yield(gui.button, "pressed")
 	var root = get_parent()
 	root.remove_child(self)
-	var new_game = preload("res://Game.tscn").instance()
+	var new_game = preload("res://SelectGame.tscn").instance()
 	root.add_child(new_game)
 

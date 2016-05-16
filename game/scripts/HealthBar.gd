@@ -29,7 +29,6 @@ func set_damage_value(value):
 	redraw()
 	
 func redraw():
-	print("Redraw healthbar " + str(_total_life) + ", " + str(_missed_life) + ", " + str(_damage_value))
 	var miss_border = 20
 	if _missed_life > 0:
 		missed.show()

@@ -6,13 +6,17 @@ signal card_played
 
 const deck = ["soldier", "tank", "helicopter", "airplane", "ship", "wall"]
 
+export (String, "red", "blue") var side = "red"
+
 # member variables here, example:
 # var a=2
 # var b="textvar"
 onready var game = get_node("/root/Game")
 onready var tween = get_node("Tween")
+onready var money = get_node("Cache")
 
 var selected_card
+
 
 func _ready():
 	yield(game, "ready")
@@ -34,8 +38,8 @@ func add_card(name, slot=null):
 				break
 	
 	var card = load("res://cards/" + name + ".tscn").instance()
-	card.hand = self
 	card.unit_name = name
+	card.hand = self
 	slot.add_child(card)
 
 func _replace_selected(a,b,c):

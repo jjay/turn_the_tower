@@ -17,28 +17,29 @@ func _ready():
 	connect("rotation_complete", self, "on_rotation_complete")
 	
 func play_card(cell):
-	if cell.side != "red":
+	print("try play card")
+	if cell.hovered_card == null:
 		return
-	if game.hand.selected_card == null:
-		return
-	
-	var card = game.hand.selected_card
-	var unit = put_unit("red", card.unit_name, cell.get_index())
+	print("plaing card")
+
+	var card = cell.hovered_card
+	var hand = card.hand
+	var unit = put_unit(cell.side, card.unit_name, cell.get_index())
 	unit.set_dragging(false)
 	
-	game.cache.remove_coins(card.cost)
-	emit_signal("card_played", "red", card.unit_name, cell.get_index())
+	hand.money.remove_coins(card.cost)
+	emit_signal("card_played", cell.side, card.unit_name, cell.get_index())
 
 	
 func put_unit(side, unit_name, index):
-	print("put_unit")
+	print("put_unit " + str(side) + ", " + str(unit_name) + ", " + str(index))
 	var path = "res://units/" + unit_name + ".tscn"
 	var unit = load(path).instance()
 	var cell = cells.get_child(index)
-	cell.set_unit(unit)
 	unit.set_pos(Vector2(0,0))
 	unit.set_unit_name(unit_name)
 	unit.set_side(side)
+	cell.set_unit(unit)
 	var base_name
 	if side == "blue":
 		base_name = "RedBase"

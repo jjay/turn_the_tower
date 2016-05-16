@@ -17,6 +17,7 @@ __meta__ = { "_editor_collapsed":true }
 [node name="Cell0" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -256, -204 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -24,6 +25,7 @@ side = "blue"
 [node name="Cell1" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -128, -208 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -31,6 +33,7 @@ side = "blue"
 [node name="Cell2" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 0, -208 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -38,6 +41,7 @@ side = "blue"
 [node name="Cell3" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 128, -208 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -45,6 +49,7 @@ side = "blue"
 [node name="Cell4" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 256, -208 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -52,6 +57,7 @@ side = "blue"
 [node name="Cell5" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -256, -80 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -59,6 +65,7 @@ side = "blue"
 [node name="Cell6" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -128, -80 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -66,6 +73,7 @@ side = "blue"
 [node name="Cell7" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 0, -80 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -73,6 +81,7 @@ side = "blue"
 [node name="Cell8" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 128, -80 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -80,6 +89,7 @@ side = "blue"
 [node name="Cell9" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 256, -80 )
+linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -87,6 +97,7 @@ side = "blue"
 [node name="Cell10" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -256, 77 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -94,6 +105,7 @@ side = "red"
 [node name="Cell11" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -128, 80 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -101,6 +113,7 @@ side = "red"
 [node name="Cell12" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 0, 80 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -108,6 +121,7 @@ side = "red"
 [node name="Cell13" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 128, 80 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -115,6 +129,7 @@ side = "red"
 [node name="Cell14" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 256, 80 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -122,6 +137,7 @@ side = "red"
 [node name="Cell15" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -256, 208 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -129,6 +145,7 @@ side = "red"
 [node name="Cell16" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -128, 208 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -136,6 +153,7 @@ side = "red"
 [node name="Cell17" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 0, 208 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -143,6 +161,7 @@ side = "red"
 [node name="Cell18" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 128, 208 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -150,6 +169,7 @@ side = "red"
 [node name="Cell19" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 256, 208 )
+linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -157,24 +177,29 @@ side = "red"
 [node name="Wall" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 0, -464 )
+linear_damp = 0.1
 
 [node name="Wall1" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 0, 480 )
+linear_damp = 0.1
 
 [node name="Wall2" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( -416, 2.95004e-05 )
 transform/rot = 90.0
+linear_damp = 0.1
 
 [node name="Wall3" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 416, 16 )
 transform/rot = 90.0
+linear_damp = 0.1
 
 [node name="BlueBase" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( -7.50304e-06, -304 )
+linear_damp = 0.1
 collision/layers = 2
 collision/mask = 1024
 shoot_bullets = false
@@ -227,6 +252,7 @@ script/script = ExtResource( 5 )
 [node name="HitTimer" parent="BlueBase"]
 
 process_mode = 1
+wait_time = 0.3
 one_shot = false
 autostart = true
 script/script = null
@@ -234,6 +260,7 @@ script/script = null
 [node name="RedBase" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 1.2724e-06, 320 )
+linear_damp = 0.1
 collision/layers = 1
 collision/mask = 2
 shoot_bullets = false
@@ -285,6 +312,7 @@ script/script = ExtResource( 5 )
 [node name="HitTimer" parent="RedBase"]
 
 process_mode = 1
+wait_time = 0.3
 one_shot = false
 autostart = true
 script/script = null

@@ -3,6 +3,7 @@ extends Area2D
 
 onready var game = get_node("/root/Game")
 onready var cost_label = get_node("Cost")
+onready var sprite = get_node("Sprite")
 
 export var cost = 5
 
@@ -16,8 +17,11 @@ var hovering_cell = null
 
 func _ready():
 	cost_label.set_text(str(cost))
-	update_playable(game.cache.current_coins)
-	game.cache.connect("coins_changed", self, "update_playable")
+	update_playable(hand.money.current_coins)
+	hand.money.connect("coins_changed", self, "update_playable")
+	var texture = load("res://units/textures/" + unit_name + "_" + hand.side + ".atex")
+	sprite.set_texture(texture)
+	
 	
 func update_playable(current_coins):
 	if current_coins >= cost:
@@ -57,16 +61,16 @@ func set_dragging(value):
 	
 	hovering_cells.clear()
 	if hovering_cell != null:
-		hovering_cell.stop_hover(self)
 		game.table.play_card(hovering_cell)
+		hovering_cell.stop_hover(self)
 		hovering_cell = null
 	else:
 		set_pos(Vector2(0, 0))
-		game.hand.set_selected_card(null)
+		hand.set_selected_card(null)
 		
 
 func on_area_enter(cell):
-	if cell.side == "blue":
+	if cell.side != hand.side:
 		return
 	if cell.get_unit() != null:
 		return
@@ -80,7 +84,7 @@ func on_area_enter(cell):
 		hide()
 
 func on_area_exit(cell):
-	if cell.side == "blue":
+	if cell.side != hand.side:
 		show()
 		return
 	#print("Exiting " + str(cell.get_path()))
