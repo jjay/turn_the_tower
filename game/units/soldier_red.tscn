@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://units/default.tscn" type="PackedScene" id=1]
+[ext_resource path="res://units/textures/soldier_red.atex" type="Texture" id=2]
+
+[node name="Area2D" instance=ExtResource( 1 )]
+
+bullet_speed = 500.0
+damage = 50.0
+total_health = 120.0
+life_time = 30.0
+
+[node name="HitZone" parent="Visual"]
+
+polygon = Vector2Array( -128, -160, -32, 0, 32, 0, 128, -160, 96, -224, 32, -256, -32, -256, -96, -224 )
+
+[node name="Sprite" parent="Visual"]
+
+transform/scale = Vector2( 0.35, 0.35 )
+texture = ExtResource( 2 )
+
+[node name="HealthBar" parent="Visual"]
+
+transform/pos = Vector2( 0, -48 )
+
+
