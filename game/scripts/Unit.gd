@@ -59,7 +59,7 @@ func _ready():
 	call_deferred("die_process")
 	if shoot_bullets:
 		call_deferred("shoot_process")
-	animate_creation()
+	#animate_creation()
 	emit_signal("ready")
 
 func set_side(side):
@@ -210,4 +210,5 @@ func die_process():
 	timer.start()
 	while true:
 		yield(timer, "timeout")
+		print("taking " + str(total_health/life_time) + " dmg")
 		take_damage(total_health/life_time)

@@ -7,7 +7,12 @@
 [node name="Area2D" instance=ExtResource( 1 )]
 
 script/script = ExtResource( 2 )
+shoot_bullets = false
+total_health = 2400.0
+life_time = 240.0
+wait_for_game = true
 side = "red"
+base_color = null
 
 [node name="Sprite" parent="Visual"]
 

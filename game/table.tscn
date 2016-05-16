@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://scripts/Table.gd" type="Script" id=1]
 [ext_resource path="res://cell.tscn" type="PackedScene" id=2]
 [ext_resource path="res://wall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://units/player_base.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/HealthBar.gd" type="Script" id=5]
+[ext_resource path="res://animations/@UnitAbleToRotate.anm" type="Animation" id=5]
+[ext_resource path="res://animations/@UnitIdle.anm" type="Animation" id=6]
+[ext_resource path="res://scripts/HealthBar.gd" type="Script" id=7]
 
 [node name="Table" type="Node2D"]
 
@@ -17,7 +19,6 @@ __meta__ = { "_editor_collapsed":true }
 [node name="Cell0" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -256, -204 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -25,7 +26,6 @@ side = "blue"
 [node name="Cell1" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -128, -208 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -33,7 +33,6 @@ side = "blue"
 [node name="Cell2" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 0, -208 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -41,7 +40,6 @@ side = "blue"
 [node name="Cell3" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 128, -208 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -49,7 +47,6 @@ side = "blue"
 [node name="Cell4" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 256, -208 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -57,7 +54,6 @@ side = "blue"
 [node name="Cell5" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -256, -80 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -65,7 +61,6 @@ side = "blue"
 [node name="Cell6" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -128, -80 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -73,7 +68,6 @@ side = "blue"
 [node name="Cell7" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 0, -80 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -81,7 +75,6 @@ side = "blue"
 [node name="Cell8" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 128, -80 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -89,7 +82,6 @@ side = "blue"
 [node name="Cell9" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 256, -80 )
-linear_damp = 0.1
 unit_collision_layers = 1
 unit_collision_mask = 2
 side = "blue"
@@ -97,7 +89,6 @@ side = "blue"
 [node name="Cell10" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -256, 77 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -105,7 +96,6 @@ side = "red"
 [node name="Cell11" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -128, 80 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -113,7 +103,6 @@ side = "red"
 [node name="Cell12" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 0, 80 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -121,7 +110,6 @@ side = "red"
 [node name="Cell13" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 128, 80 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -129,7 +117,6 @@ side = "red"
 [node name="Cell14" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 256, 80 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -137,7 +124,6 @@ side = "red"
 [node name="Cell15" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -256, 208 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -145,7 +131,6 @@ side = "red"
 [node name="Cell16" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -128, 208 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -153,7 +138,6 @@ side = "red"
 [node name="Cell17" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 0, 208 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -161,7 +145,6 @@ side = "red"
 [node name="Cell18" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 128, 208 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -169,7 +152,6 @@ side = "red"
 [node name="Cell19" parent="Cells" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 256, 208 )
-linear_damp = 0.1
 unit_collision_layers = 2
 unit_collision_mask = 1
 side = "red"
@@ -196,15 +178,26 @@ transform/pos = Vector2( 416, 16 )
 transform/rot = 90.0
 linear_damp = 0.1
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+polygon = Vector2Array( 320, 16, 320, -16, -320, -16, -320, 16 )
+uv = Vector2Array(  )
+color = Color( 0.113281, 0.113281, 0.113281, 0.716789 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
 [node name="BlueBase" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( -7.50304e-06, -304 )
-linear_damp = 0.1
+transform/pos = Vector2( -1.27241e-06, -320 )
 collision/layers = 2
-collision/mask = 1024
-shoot_bullets = false
-wait_for_game = true
+collision/mask = 1
 side = "blue"
+base_color = Color( 0.094223, 0.495525, 0.964844, 1 )
 
 [node name="CollisionPolygon2D" parent="BlueBase"]
 
@@ -223,6 +216,7 @@ script/script = null
 
 visibility/visible = false
 transform/rot = 0.0
+z/z = 1
 polygon = Vector2Array( -31.9998, -960, -32, 0, 32, 0, 32.0001, -960 )
 uv = Vector2Array(  )
 color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
@@ -239,7 +233,20 @@ script/script = null
 
 transform/rot = 0.0
 transform/scale = Vector2( 0.3, 0.3 )
-modulate = Color( 0.199125, 0.155731, 0.949219, 1 )
+z/z = 2
+script/script = null
+
+[node name="AnimationPlayer" parent="BlueBase/Visual/Sprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/@UnitAbleToRotate = ExtResource( 5 )
+anims/@UnitIdle = ExtResource( 6 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
 script/script = null
 
 [node name="HealthBar" parent="BlueBase/Visual"]
@@ -247,7 +254,7 @@ script/script = null
 transform/pos = Vector2( 7.62939e-06, -40 )
 transform/rot = 0.0
 transform/scale = Vector2( 1.5, 1.5 )
-script/script = ExtResource( 5 )
+script/script = ExtResource( 7 )
 
 [node name="HitTimer" parent="BlueBase"]
 
@@ -259,12 +266,10 @@ script/script = null
 
 [node name="RedBase" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 1.2724e-06, 320 )
-linear_damp = 0.1
+transform/pos = Vector2( -2.54229e-06, 320 )
 collision/layers = 1
 collision/mask = 2
-shoot_bullets = false
-wait_for_game = true
+base_color = Color( 0.917969, 0.236664, 0.236664, 1 )
 
 [node name="CollisionPolygon2D" parent="RedBase"]
 
@@ -283,6 +288,7 @@ script/script = null
 
 visibility/visible = false
 transform/rot = 0.0
+z/z = 1
 polygon = Vector2Array( -31.9998, -960, -32, 0, 32, 0, 32.0001, -960 )
 uv = Vector2Array(  )
 color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
@@ -299,7 +305,20 @@ script/script = null
 
 transform/rot = 0.0
 transform/scale = Vector2( 0.3, 0.3 )
-modulate = Color( 0.875, 0.23584, 0.23584, 1 )
+z/z = 2
+script/script = null
+
+[node name="AnimationPlayer" parent="RedBase/Visual/Sprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/@UnitAbleToRotate = ExtResource( 5 )
+anims/@UnitIdle = ExtResource( 6 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
 script/script = null
 
 [node name="HealthBar" parent="RedBase/Visual"]
@@ -307,7 +326,7 @@ script/script = null
 transform/pos = Vector2( 7.62939e-06, -40 )
 transform/rot = 0.0
 transform/scale = Vector2( 1.5, 1.5 )
-script/script = ExtResource( 5 )
+script/script = ExtResource( 7 )
 
 [node name="HitTimer" parent="RedBase"]
 
@@ -316,19 +335,6 @@ wait_time = 0.3
 one_shot = false
 autostart = true
 script/script = null
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-
-polygon = Vector2Array( 320, 16, 320, -16, -320, -16, -320, 16 )
-uv = Vector2Array(  )
-color = Color( 0.113281, 0.113281, 0.113281, 0.716789 )
-offset = Vector2( 0, 0 )
-texture/texture = null
-texture/offset = Vector2( 0, 0 )
-texture/scale = Vector2( 1, 1 )
-texture/rotation = 0.0
-invert/enable = false
-invert/border = 100.0
 
 
 [editable path="BlueBase"]

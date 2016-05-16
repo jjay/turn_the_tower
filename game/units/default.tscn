@@ -80,7 +80,7 @@ autoplay = ""
 
 [node name="HealthBar" parent="Visual" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 7.62939e-006, -40 )
+transform/pos = Vector2( 7.62939e-06, -40 )
 transform/scale = Vector2( 1.5, 1.5 )
 
 [node name="HitTimer" type="Timer" parent="."]
