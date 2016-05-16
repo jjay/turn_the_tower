@@ -11,6 +11,10 @@ total_health = 510.0
 life_time = 30.0
 hit_rate = 2.0
 
+[node name="HitZone" parent="Visual"]
+
+polygon = Vector2Array( -95.9999, -448, -63.9999, -384, 6.15456e-005, -352, 64.0001, -384, 96.0001, -448, 64.0001, -512, 9.5116e-005, -544, -63.9999, -512 )
+
 [node name="Sprite" parent="Visual"]
 
 texture = ExtResource( 2 )
