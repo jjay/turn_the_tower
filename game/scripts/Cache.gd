@@ -19,6 +19,7 @@ func _ready():
 	# Initialization here
 	current_coins = start_coins
 	redraw_coins()
+	yield(get_node("/root/Game"), "ready")
 	timer.connect("timeout", self, "add_coin")
 	timer.start()
 

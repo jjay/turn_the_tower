@@ -15,6 +15,7 @@ export var wait_for_game = false
 
 
 onready var game = get_node("/root/Game")
+onready var sprite = get_node("Visual/Sprite")
 onready var hit_zone = get_node("Visual/HitZone")
 onready var hit_timer = get_node("HitTimer")
 onready var health_bar = get_node("Visual/HealthBar")
@@ -28,6 +29,8 @@ var owner
 var card
 var lifes = 0
 var rotated = false
+var unit_name = "default"
+var unit_side = "red"
 
 
 func _ready():
@@ -51,6 +54,15 @@ func _ready():
 		call_deferred("shoot_process")
 	animate_creation()
 	emit_signal("ready")
+
+func set_side(side):
+	var tex = load("res://units/textures/" + unit_name + "_" + side + ".atex")
+	sprite.set_texture(tex)
+	unit_side = side
+
+func set_unit_name(name):
+	unit_name = name
+	
 
 func animate_creation():
 	var tween = Tween.new()

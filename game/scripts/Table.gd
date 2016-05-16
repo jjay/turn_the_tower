@@ -30,13 +30,15 @@ func play_card(cell):
 	emit_signal("card_played", "red", card.unit_name, cell.get_index())
 
 	
-func put_unit(side, card_name, index):
+func put_unit(side, unit_name, index):
 	print("put_unit")
-	var path = "res://units/" + card_name + "_" + side + ".tscn"
+	var path = "res://units/" + unit_name + ".tscn"
 	var unit = load(path).instance()
 	var cell = cells.get_child(index)
 	cell.set_unit(unit)
 	unit.set_pos(Vector2(0,0))
+	unit.set_unit_name(unit_name)
+	unit.set_side(side)
 	var base_name
 	if side == "blue":
 		base_name = "RedBase"
