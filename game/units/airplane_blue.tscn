@@ -5,6 +5,8 @@
 
 [node name="Area2D" instance=ExtResource( 1 )]
 
+linear_damp = 0.1
+
 [node name="CollisionPolygon2D" parent="."]
 
 transform/rot = 0.0
@@ -20,6 +22,7 @@ script/script = null
 
 [node name="HitZone" parent="Visual"]
 
+visibility/visible = false
 transform/rot = 0.0
 uv = Vector2Array(  )
 color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
@@ -41,7 +44,7 @@ script/script = null
 
 [node name="HealthBar" parent="Visual"]
 
-transform/pos = Vector2( 7.62939e-06, -40 )
+transform/pos = Vector2( 7.62939e-006, -40 )
 transform/rot = 0.0
 transform/scale = Vector2( 1.5, 1.5 )
 
