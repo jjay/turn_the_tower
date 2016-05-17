@@ -111,6 +111,9 @@ func _input(event):
 		set_dragging(false)
 
 func bullet_hit(bullet):
+	if bullet.targets.find(self) == -1:
+		return
+		
 	#print("take damage " + str(bullet) + ", " + str(bullet.get("damage")))
 	var dmg = bullet.damage
 	bullet.call_deferred("remove")
@@ -157,24 +160,25 @@ func _fixed_process(delta):
 	request.set_shape(shape)
 	request.set_transform(poly.get_global_transform())
 	var result = get_world_2d().get_direct_space_state().intersect_shape(request)
-	var nearest = null
+	var targets = []
 	for result_item in result:
-		print("Checking " + str(result_item["collider"].get_path()))
-
 		if !(result_item["collider"] extends get_script()):
 			continue
-		var pos = result_item["collider"].get_table_pos()
-		if nearest == null:
-			nearest = pos
-		elif get_table_pos().distance_to(pos) < get_table_pos().distance_to(nearest):
-			nearest = pos
-	
-	#if nearest != null:
-	#	print("Fount at fixed: " + str(nearest.get_path()))
-
+		targets.append(result_item["collider"])
+		
+		#var pos = result_item["collider"].get_table_pos()
+		#if nearest == null:
+		#	nearest = pos
+		#elif get_table_pos().distance_to(pos) < get_table_pos().distance_to(nearest):
+		#	nearest = pos
+	targets.sort_custom(self, "sort_targets")
 
 	set_fixed_process(false)
-	emit_signal("target_found", nearest)
+	emit_signal("target_found", targets)
+
+func sort_targets(a, b):
+	var tb = get_table_pos()
+	return tb.distance_squared_to(a.get_table_pos()) < tb.distance_squared_to(b.get_table_pos())
 	
 func shoot_process():
 	while true:
@@ -183,14 +187,15 @@ func shoot_process():
 			continue
 		var bullet = preload("../units/bullet.tscn").instance()
 		set_fixed_process(true)
-		var target = yield(self, "target_found")
+		var targets = yield(self, "target_found")
 
-		if target == null:
+		if targets.size() == 0:
 			continue
 
 
-		var direction = (target - get_table_pos()).normalized()
+		var direction = (targets[0].get_table_pos() - get_table_pos()).normalized()
 		bullet.set_collision_mask(get_collision_mask())
+		bullet.targets = targets
 		#bullet.set_layer_mask(get_layer_mask())
 		game.table.add_child(bullet)
 		bullet.set_pos(get_cell().get_pos())
