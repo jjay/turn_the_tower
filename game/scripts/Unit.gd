@@ -12,6 +12,7 @@ export (float) var life_time = 10
 export (float) var die_delay = 0
 export (float) var hit_rate = 1
 export var wait_for_game = false
+export (String, FILE, "*.tscn") var bullet_prefab
 
 
 onready var game = get_node("/root/Game")
@@ -47,7 +48,7 @@ func _ready():
 	else:
 		animation.play("@UnitIdle")
 
-	connect("body_enter", self, "bullet_hit")
+	connect("area_enter", self, "bullet_hit")
 	update_texture()
 	
 	if wait_for_game:
@@ -114,9 +115,9 @@ func bullet_hit(bullet):
 	if bullet.targets.find(self) == -1:
 		return
 		
-	#print("take damage " + str(bullet) + ", " + str(bullet.get("damage")))
+	print("take damage " + str(bullet) + ", " + str(bullet.get("damage")))
 	var dmg = bullet.damage
-	bullet.call_deferred("remove")
+	bullet.call_deferred("destroy")
 	take_damage(dmg)
 
 func take_damage(damage):
@@ -185,26 +186,29 @@ func shoot_process():
 		yield(hit_timer, "timeout")
 		if dragging:
 			continue
-		var bullet = preload("../units/bullet.tscn").instance()
+		
 		set_fixed_process(true)
 		var targets = yield(self, "target_found")
 
 		if targets.size() == 0:
 			continue
 
+		print(bullet_prefab)
+		var bullet = load(bullet_prefab).instance()
+		bullet.setup_targets(game, self, targets)
+		
 
-		var direction = (targets[0].get_table_pos() - get_table_pos()).normalized()
-		bullet.set_collision_mask(get_collision_mask())
-		bullet.targets = targets
-		#bullet.set_layer_mask(get_layer_mask())
-		game.table.add_child(bullet)
-		bullet.set_pos(get_cell().get_pos())
-		bullet.set_rot(get_rot())
-		bullet.set_scale(Vector2(2,2))
-		bullet.damage = damage
-		var v = direction * bullet_speed
-		bullet.set_linear_velocity(v)
-		game.table.emit_signal("unit_shoot", get_cell().get_index(), v)
+		#var direction = (targets[0].get_table_pos() - get_table_pos()).normalized()
+		#bullet.set_collision_mask(get_collision_mask())
+		#bullet.targets = targets
+		#game.table.add_child(bullet)
+		#bullet.set_pos(get_cell().get_pos())
+		#bullet.set_rot(get_rot())
+		#bullet.set_scale(Vector2(2,2))
+		#bullet.damage = damage
+		#var v = direction * bullet_speed
+		#bullet.set_linear_velocity(v)
+		#game.table.emit_signal("unit_shoot", get_cell().get_index(), v)
 		
 
 func die_process():
