@@ -6,25 +6,23 @@
 
 [node name="SelectGame" type="Panel"]
 
+margin/right = 648.0
+margin/bottom = 1160.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 648.0
-margin/bottom = 1160.0
 
 [node name="Button" type="Button" parent="."]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
 margin/left = 96.0
 margin/top = 128.0
 margin/right = 552.0
 margin/bottom = 258.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
 toggle_mode = false
 flat = false
 script/script = ExtResource( 1 )
@@ -49,14 +47,14 @@ valign = 1
 
 [node name="Button1" type="Button" parent="."]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
 margin/left = 96.0
 margin/top = 304.0
 margin/right = 552.0
 margin/bottom = 434.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
 toggle_mode = false
 flat = false
 script/script = ExtResource( 1 )

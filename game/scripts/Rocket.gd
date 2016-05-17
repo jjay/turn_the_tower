@@ -3,6 +3,7 @@ extends "BaseBullet.gd"
 
 export (float) var max_angular_speed
 export (float) var angular_acceleration
+export var random_direction = true
 
 onready var smoke = get_node("Smoke")
 
@@ -10,8 +11,9 @@ var angular_speed = 0
 var target = null
 
 func _ready():
-	randomize()
-	set_rot(rand_range(0, 2*PI))
+	if random_direction:
+		randomize()
+		set_rot(rand_range(0, 2*PI))
 	
 func _process(delta):
 	if target == null || !target.is_inside_tree():
