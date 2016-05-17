@@ -5,7 +5,7 @@
 
 [node name="Area2D" instance=ExtResource( 1 )]
 
-bullet_speed = 500.0
+linear_damp = 0.1
 damage = 36.0
 total_health = 200.0
 life_time = 30.0
@@ -19,5 +19,9 @@ polygon = Vector2Array( -16, -2.79753e-006, 16, 2.79753e-006, 48.0001, -448, 32.
 
 transform/scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 2 )
+
+[node name="HitTimer" parent="."]
+
+wait_time = 0.3
 
 

@@ -11,8 +11,9 @@ script/script = ExtResource( 2 )
 start_speed = 0.0
 max_speed = 400.0
 acceleration = 400.0
-max_angular_speed = 5.0
-angular_acceleration = 16.0
+max_angular_speed = 0.0
+angular_acceleration = 0.0
+random_direction = false
 
 [node name="Explosion" parent="."]
 
