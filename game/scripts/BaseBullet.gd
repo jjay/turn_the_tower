@@ -20,14 +20,14 @@ func _process(delta):
 	var new_dir = Vector2(0, 1).rotated(get_rot()) * delta * speed
 	translate(new_dir)
 
-func setup_targets(game, unit, new_targets):
+func setup_targets(parent, unit, new_targets):
 	set_process(true)
 	targets = new_targets
 	damage = unit.damage
 	set_collision_mask(unit.get_collision_mask())
 	set_pos(unit.get_table_pos())
 	look_at(targets[0].get_table_pos())
-	game.table.add_child(self)
+	parent.add_child(self)
 	
 	
 func destroy():
