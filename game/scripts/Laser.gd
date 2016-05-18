@@ -29,6 +29,7 @@ func _fixed_process(delta):
 	var from = get_global_pos()
 	var to = from + Vector2(0, 1000).rotated(get_rot())
 	var exclude = []
+	var explosion = preload("res://fx/explosion.tscn")
 	while true:
 		var result = state.intersect_ray(from, to, exclude, layer_mask, Physics2DDirectSpaceState.TYPE_MASK_AREA)
 		if result.empty():
@@ -36,6 +37,10 @@ func _fixed_process(delta):
 		var target = result["collider"]
 		target.take_damage(damage)
 		exclude.append(target)
+		
+		var e = explosion.instance()
+		get_parent().add_child(e)
+		e.set_global_pos(result["position"])
 		#print("Hitting " + str(result["collider"]))
 		
 		

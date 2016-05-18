@@ -6,6 +6,7 @@
 
 [node name="Explosion" type="Node2D"]
 
+z/z = 100
 script/script = ExtResource( 1 )
 duration = 1.5
 autoplay = true
