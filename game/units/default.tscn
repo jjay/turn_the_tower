@@ -33,7 +33,7 @@ life_time = 10
 die_delay = 0
 hit_rate = 1
 wait_for_game = false
-bullet_prefab = "res://units/bullet.tscn"
+bullet_prefab = "res://projectiles/bullet.tscn"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -81,8 +81,9 @@ autoplay = ""
 
 [node name="HealthBar" parent="Visual" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 7.62939e-06, -40 )
+transform/pos = Vector2( 7.62939e-006, -40 )
 transform/scale = Vector2( 1.5, 1.5 )
+z/z = 100
 
 [node name="HitTimer" type="Timer" parent="."]
 

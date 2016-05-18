@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://table.tscn" type="PackedScene" id=2]
@@ -7,6 +7,14 @@
 [ext_resource path="res://scripts/RemotePlayer.gd" type="Script" id=5]
 [ext_resource path="res://cache.tscn" type="PackedScene" id=6]
 [ext_resource path="res://gui.tscn" type="PackedScene" id=7]
+[ext_resource path="res://units/airplane.tscn" type="PackedScene" id=8]
+[ext_resource path="res://animations/@UnitAbleToRotate.anm" type="Animation" id=9]
+[ext_resource path="res://animations/@UnitIdle.anm" type="Animation" id=10]
+[ext_resource path="res://units/helicopter.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scripts/HealthBar.gd" type="Script" id=12]
+[ext_resource path="res://units/ship.tscn" type="PackedScene" id=13]
+[ext_resource path="res://units/soldier.tscn" type="PackedScene" id=14]
+[ext_resource path="res://units/tank.tscn" type="PackedScene" id=15]
 
 [node name="Game" type="Node"]
 
@@ -40,4 +48,265 @@ start_coins = 10
 visibility/visible = false
 linear_damp = 0.1
 
+[node name="Area2D" parent="." instance=ExtResource( 8 )]
 
+transform/scale = Vector2( 1, 1 )
+linear_damp = 0.1
+
+[node name="CollisionPolygon2D" parent="Area2D"]
+
+transform/pos = Vector2( 0, 0 )
+transform/rot = 0.0
+build_mode = 0
+polygon = Vector2Array( 40, -40, -40, -40, -40, 40, 40, 40 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+script/script = null
+
+[node name="Visual" parent="Area2D"]
+
+transform/pos = Vector2( 0, 0 )
+script/script = null
+
+[node name="HitZone" parent="Area2D/Visual"]
+
+visibility/visible = false
+transform/rot = 0.0
+z/z = 1
+uv = Vector2Array(  )
+color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+script/script = null
+
+[node name="Sprite" parent="Area2D/Visual"]
+
+transform/rot = 0.0
+transform/scale = Vector2( 0.35, 0.35 )
+z/z = 2
+script/script = null
+
+[node name="AnimationPlayer" parent="Area2D/Visual/Sprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/@UnitAbleToRotate = ExtResource( 9 )
+anims/@UnitIdle = ExtResource( 10 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+script/script = null
+
+[node name="HitTimer" parent="Area2D"]
+
+wait_time = 0.3
+
+[node name="Area2D 2" parent="." instance=ExtResource( 11 )]
+
+transform/pos = Vector2( 336, 496 )
+transform/scale = Vector2( 1, 1 )
+linear_damp = 0.1
+
+[node name="CollisionPolygon2D" parent="Area2D 2"]
+
+transform/rot = 0.0
+build_mode = 0
+polygon = Vector2Array( 40, -40, -40, -40, -40, 40, 40, 40 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+script/script = null
+
+[node name="Visual" parent="Area2D 2"]
+
+script/script = null
+
+[node name="HitZone" parent="Area2D 2/Visual"]
+
+visibility/visible = false
+transform/rot = 0.0
+z/z = 1
+polygon = Vector2Array( -16, -2.79753e-006, 16, 2.79753e-006, 48.0001, -416, 9.15527e-005, -480, -47.9999, -416 )
+uv = Vector2Array(  )
+color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+script/script = null
+
+[node name="Sprite" parent="Area2D 2/Visual"]
+
+transform/rot = 0.0
+transform/scale = Vector2( 0.3, 0.3 )
+z/z = 2
+script/script = null
+
+[node name="AnimationPlayer" parent="Area2D 2/Visual/Sprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/@UnitAbleToRotate = ExtResource( 9 )
+anims/@UnitIdle = ExtResource( 10 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+script/script = null
+
+[node name="HealthBar" parent="Area2D 2/Visual"]
+
+transform/pos = Vector2( 7.62939e-006, -40 )
+transform/rot = 0.0
+transform/scale = Vector2( 1.5, 1.5 )
+z/z = 100
+script/script = ExtResource( 12 )
+
+[node name="HitTimer" parent="Area2D 2"]
+
+wait_time = 0.3
+
+[node name="Area2D 3" parent="." instance=ExtResource( 13 )]
+
+transform/pos = Vector2( 208, 496 )
+linear_damp = 0.1
+
+[node name="CollisionPolygon2D" parent="Area2D 3"]
+
+transform/rot = 0.0
+build_mode = 0
+polygon = Vector2Array( 40, -40, -40, -40, -40, 40, 40, 40 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+script/script = null
+
+[node name="Visual" parent="Area2D 3"]
+
+script/script = null
+
+[node name="HitZone" parent="Area2D 3/Visual"]
+
+transform/rot = 0.0
+z/z = 1
+polygon = Vector2Array( -112, -384, -79.9999, -304, 4.57764e-005, -272, 80.0001, -304, 112, -384, 80.0001, -464, 9.15527e-005, -496, -79.9999, -464 )
+uv = Vector2Array(  )
+color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+script/script = null
+
+[node name="Sprite" parent="Area2D 3/Visual"]
+
+transform/rot = 0.0
+transform/scale = Vector2( 0.3, 0.3 )
+z/z = 2
+script/script = null
+
+[node name="AnimationPlayer" parent="Area2D 3/Visual/Sprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/@UnitAbleToRotate = ExtResource( 9 )
+anims/@UnitIdle = ExtResource( 10 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+script/script = null
+
+[node name="HealthBar" parent="Area2D 3/Visual"]
+
+transform/pos = Vector2( 7.62939e-006, -40 )
+transform/rot = 0.0
+transform/scale = Vector2( 1.5, 1.5 )
+z/z = 100
+script/script = ExtResource( 12 )
+
+[node name="HitTimer" parent="Area2D 3"]
+
+wait_time = 0.3
+
+[node name="Area2D 4" parent="." instance=ExtResource( 14 )]
+
+transform/pos = Vector2( 464, 336 )
+linear_damp = 0.1
+
+[node name="CollisionPolygon2D" parent="Area2D 4"]
+
+transform/rot = 0.0
+build_mode = 0
+polygon = Vector2Array( 40, -40, -40, -40, -40, 40, 40, 40 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+script/script = null
+
+[node name="Visual" parent="Area2D 4"]
+
+script/script = null
+
+[node name="HitZone" parent="Area2D 4/Visual"]
+
+visibility/visible = false
+transform/rot = 0.0
+z/z = 1
+uv = Vector2Array(  )
+color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+script/script = null
+
+[node name="Sprite" parent="Area2D 4/Visual"]
+
+transform/rot = 0.0
+transform/scale = Vector2( 0.3, 0.3 )
+z/z = 2
+script/script = null
+
+[node name="AnimationPlayer" parent="Area2D 4/Visual/Sprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/@UnitAbleToRotate = ExtResource( 9 )
+anims/@UnitIdle = ExtResource( 10 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+script/script = null
+
+[node name="HitTimer" parent="Area2D 4"]
+
+wait_time = 0.3
+
+[node name="Area2D 5" parent="." instance=ExtResource( 15 )]
+
+transform/pos = Vector2( 80, 336 )
+linear_damp = 0.1
+
+
+[editable path="Area2D"]
+[editable path="Area2D 2"]
+[editable path="Area2D 3"]
+[editable path="Area2D 4"]
