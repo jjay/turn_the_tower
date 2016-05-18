@@ -3,10 +3,8 @@
 [ext_resource path="res://units/default.tscn" type="PackedScene" id=1]
 [ext_resource path="res://units/textures/helicopter_red.atex" type="Texture" id=2]
 
-[node name="Area2D 2" instance=ExtResource( 1 )]
+[node name="Area2D" instance=ExtResource( 1 )]
 
-transform/pos = Vector2( 336, 496 )
-transform/scale = Vector2( 1, 1 )
 bullet_speed = 400.0
 damage = 50.0
 total_health = 240.0
@@ -15,7 +13,7 @@ hit_rate = 1.25
 
 [node name="HitZone" parent="Visual"]
 
-polygon = Vector2Array( -16, -2.79753e-006, 16, 2.79753e-006, 48.0001, -416, 9.15527e-005, -480, -47.9999, -416 )
+polygon = Vector2Array( -16, -2.79753e-006, 16, 2.79753e-006, 48.0001, -448, 32.0001, -496, 0.00012207, -528, -31.9999, -496, -47.9999, -448 )
 
 [node name="Sprite" parent="Visual"]
 

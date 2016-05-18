@@ -6,10 +6,17 @@
 [node name="Card" instance=ExtResource( 1 )]
 
 linear_damp = 0.1
-cost = 2
+cost = 1
 
 [node name="Sprite" parent="."]
 
 texture = ExtResource( 2 )
+
+[node name="Cost" parent="."]
+
+margin/left = 0.0
+margin/right = 44.0
+margin/bottom = -7.0
+text = "3"
 
 

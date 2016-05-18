@@ -12,4 +12,11 @@ cost = 6
 
 texture = ExtResource( 2 )
 
+[node name="Cost" parent="."]
+
+margin/left = 0.0
+margin/right = 44.0
+margin/bottom = -7.0
+text = "3"
+
 
