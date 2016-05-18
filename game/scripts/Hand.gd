@@ -37,7 +37,7 @@ func add_card(name, slot=null):
 				slot = check_slot
 				break
 	
-	var card = load("res://cards/" + name + ".tscn").instance()
+	var card = preload("res://card.tscn").instance()
 	card.unit_name = name
 	card.hand = self
 	slot.add_child(card)

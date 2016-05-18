@@ -11,6 +11,7 @@ export (float) var total_health = 10
 export (float) var life_time = 10
 export (float) var die_delay = 0
 export (float) var hit_rate = 1
+export var cost = 3
 export var wait_for_game = false
 export (String, FILE, "*.tscn") var bullet_prefab
 
@@ -114,8 +115,6 @@ func _input(event):
 func bullet_hit(bullet):
 	if bullet.targets.find(self) == -1:
 		return
-		
-	print("take damage " + str(bullet) + ", " + str(bullet.get("damage")))
 	var dmg = bullet.damage
 	bullet.call_deferred("destroy")
 	take_damage(dmg)
@@ -129,7 +128,6 @@ func take_damage(damage):
 func remove():
 	var p = get_parent()
 	p.remove_child(self)
-	print("Parent: " + str(p) + ", child count: " + str(p.get_child_count()))
 
 func get_cell():
 	return get_parent().get_parent()
@@ -191,11 +189,11 @@ func shoot_process():
 		var targets = yield(self, "target_found")
 
 		if targets.size() == 0:
+			print("No targets found, won't shoot")
 			continue
 
-		print(bullet_prefab)
 		var bullet = load(bullet_prefab).instance()
-		bullet.setup_targets(game, self, targets)
+		bullet.setup_targets(game.table, self, targets)
 		
 
 		#var direction = (targets[0].get_table_pos() - get_table_pos()).normalized()
@@ -219,5 +217,4 @@ func die_process():
 	timer.start()
 	while true:
 		yield(timer, "timeout")
-		print("taking " + str(total_health/life_time) + " dmg")
 		take_damage(total_health/life_time)
