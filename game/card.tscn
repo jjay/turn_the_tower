@@ -22,7 +22,6 @@ angular_damp = 1.0
 collision/layers = 524288
 collision/mask = 0
 script/script = ExtResource( 1 )
-cost = 5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -38,6 +37,7 @@ texture = ExtResource( 2 )
 
 [node name="Cost" parent="." instance=ExtResource( 3 )]
 
+margin/left = 0.0
 margin/top = -48.0
 margin/right = 44.0
 margin/bottom = -7.0

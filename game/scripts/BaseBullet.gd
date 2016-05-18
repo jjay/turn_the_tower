@@ -24,6 +24,7 @@ func setup_targets(parent, unit, new_targets):
 	set_process(true)
 	targets = new_targets
 	damage = unit.damage
+	max_speed = unit.bullet_speed
 	set_collision_mask(unit.get_collision_mask())
 	set_pos(unit.get_table_pos())
 	look_at(targets[0].get_table_pos())

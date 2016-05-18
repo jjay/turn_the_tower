@@ -5,8 +5,9 @@ onready var game = get_node("/root/Game")
 onready var cost_label = get_node("Cost")
 onready var sprite = get_node("Sprite")
 
-export var cost = 5
+#export var cost = 5
 
+var cost = 0
 var hand = null
 var unit_name = "noname"
 var owner = null
@@ -16,6 +17,10 @@ var hovering_cells = []
 var hovering_cell = null
 
 func _ready():
+	var unit_path = "res://units/" + unit_name + ".tscn"
+	print("Unit path: " + unit_path)
+	var unit = load(unit_path).instance()
+	cost = unit.cost
 	cost_label.set_text(str(cost))
 	update_playable(hand.money.current_coins)
 	hand.money.connect("coins_changed", self, "update_playable")

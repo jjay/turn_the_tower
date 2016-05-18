@@ -11,6 +11,7 @@ export (float) var total_health = 10
 export (float) var life_time = 10
 export (float) var die_delay = 0
 export (float) var hit_rate = 1
+export var cost = 3
 export var wait_for_game = false
 export (String, FILE, "*.tscn") var bullet_prefab
 
