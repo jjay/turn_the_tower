@@ -11,8 +11,6 @@ side = "red"
 
 [node name="Slots" type="Node2D" parent="."]
 
-__meta__ = { "_editor_collapsed":true }
-
 [node name="Slot0" type="Sprite" parent="Slots"]
 
 transform/pos = Vector2( -192, 0 )
