@@ -5,10 +5,11 @@
 
 [node name="Area2D" instance=ExtResource( 1 )]
 
-transform/scale = Vector2( 1, 1 )
+linear_damp = 0.1
 damage = 50.0
 total_health = 120.0
 life_time = 30.0
+cost = 1
 
 [node name="HitZone" parent="Visual"]
 
@@ -21,5 +22,9 @@ texture = ExtResource( 2 )
 [node name="HealthBar" parent="Visual"]
 
 transform/pos = Vector2( 0, -48 )
+
+[node name="HitTimer" parent="."]
+
+wait_time = 0.3
 
 

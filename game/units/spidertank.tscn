@@ -9,6 +9,7 @@ linear_damp = 0.1
 damage = 15.0
 total_health = 510.0
 life_time = 30.0
+cost = 5
 
 [node name="Sprite" parent="Visual"]
 

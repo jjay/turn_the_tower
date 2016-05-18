@@ -5,11 +5,13 @@
 
 [node name="Area2D" instance=ExtResource( 1 )]
 
+linear_damp = 0.1
 bullet_speed = 250.0
 damage = 100.0
 total_health = 350.0
 life_time = 30.0
 hit_rate = 2.0
+cost = 5
 bullet_prefab = "res://projectiles/rocket.tscn"
 
 [node name="HitZone" parent="Visual"]
@@ -19,5 +21,9 @@ polygon = Vector2Array( -112, -384, -79.9999, -304, 4.57764e-005, -272, 80.0001,
 [node name="Sprite" parent="Visual"]
 
 texture = ExtResource( 2 )
+
+[node name="HitTimer" parent="."]
+
+wait_time = 0.3
 
 

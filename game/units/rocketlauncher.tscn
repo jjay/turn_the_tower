@@ -5,19 +5,18 @@
 
 [node name="Area2D" instance=ExtResource( 1 )]
 
-transform/scale = Vector2( 1, 1 )
 linear_damp = 0.1
 bullet_speed = 200.0
 damage = 130.0
 total_health = 330.0
 hit_rate = 1.8
+cost = 7
 bullet_prefab = "res://projectiles/rocket.tscn"
 
 [node name="HitZone" parent="Visual"]
 
-visibility/visible = true
-transform/pos = Vector2( -7.61793, -228 )
-polygon = Vector2Array( 7.61804, -300, -72.3819, -268, -104.382, -188, -72.382, -108, 7.61801, -76.0001, 87.618, -108, 119.618, -188, 87.618, -268 )
+transform/pos = Vector2( -15.6181, 4.00006 )
+polygon = Vector2Array( 15.6181, -276, -48.3819, -244, -80.3819, -180, -48.3819, -116, 14.7814, -84.0001, 79.6181, -116, 111.618, -180, 79.6181, -244 )
 
 [node name="Sprite" parent="Visual"]
 
