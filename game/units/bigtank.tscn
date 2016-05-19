@@ -7,8 +7,8 @@
 
 linear_damp = 0.1
 damage = 20.0
-total_health = 400.0
-life_time = 30.0
+total_health = 510.0
+life_time = 20.0
 hit_rate = 0.5
 cost = 8
 bullet_prefab = "res://projectiles/laser.tscn"

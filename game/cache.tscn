@@ -6,12 +6,12 @@
 [node name="Cache" type="Node2D"]
 
 script/script = ExtResource( 1 )
-start_coins = 5
+start_coins = 0
 
 [node name="Timer" type="Timer" parent="."]
 
 process_mode = 1
-wait_time = 2.3
+wait_time = 2.0
 one_shot = false
 autostart = false
 

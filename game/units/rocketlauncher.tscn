@@ -9,6 +9,7 @@ linear_damp = 0.1
 bullet_speed = 200.0
 damage = 130.0
 total_health = 330.0
+life_time = 20.0
 hit_rate = 1.8
 cost = 7
 bullet_prefab = "res://projectiles/rocket.tscn"

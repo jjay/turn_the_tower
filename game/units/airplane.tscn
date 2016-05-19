@@ -8,7 +8,7 @@ linear_damp = 0.1
 bullet_speed = 400.0
 damage = 36.0
 total_health = 200.0
-life_time = 30.0
+life_time = 20.0
 hit_rate = 0.75
 cost = 5
 
