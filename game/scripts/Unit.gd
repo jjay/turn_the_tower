@@ -37,6 +37,8 @@ var unit_side = "red"
 
 
 func _ready():
+	
+	add_to_group(unit_side + "_unit")
 
 	health = total_health
 	health_bar.set_total_life(total_health)
@@ -49,7 +51,6 @@ func _ready():
 	else:
 		animation.play("@UnitIdle")
 
-	connect("area_enter", self, "bullet_hit")
 	update_texture()
 	
 	if wait_for_game:
@@ -112,12 +113,6 @@ func _input(event):
 			animation.play("@UnitIdle")
 		set_dragging(false)
 
-func bullet_hit(bullet):
-	if bullet.targets.find(self) == -1:
-		return
-	var dmg = bullet.damage
-	bullet.call_deferred("destroy")
-	take_damage(dmg)
 
 func take_damage(damage):
 	health -= damage

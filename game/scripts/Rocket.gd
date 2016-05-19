@@ -1,4 +1,4 @@
-
+tool
 extends "BaseBullet.gd"
 
 export (float) var max_angular_speed
@@ -11,6 +11,8 @@ var angular_speed = 0
 var target = null
 
 func _ready():
+	if get_tree().is_editor_hint():
+		return
 	if random_direction:
 		randomize()
 		set_rot(rand_range(0, 2*PI))
