@@ -51,9 +51,9 @@ transform/rot = 180.0
 
 visibility/visible = false
 z/z = 1
-polygon = Vector2Array( -31.9998, -960, -32, 0, 32, 0, 32.0001, -960 )
+polygon = Vector2Array( -929.578, -1212.82, -896.85, 803.726, 976.196, 773.515, 1041.65, -1157.43 )
 uv = Vector2Array(  )
-color = Color( 0.875, 0.146973, 0.146973, 0.616096 )
+color = Color( 0.875, 0.146973, 0.146973, 0 )
 offset = Vector2( 0, 0 )
 texture/texture = null
 texture/offset = Vector2( 0, 0 )
@@ -82,7 +82,7 @@ autoplay = ""
 
 [node name="HealthBar" parent="Visual" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 7.62939e-06, -40 )
+transform/pos = Vector2( 7.62939e-006, -40 )
 transform/scale = Vector2( 1.5, 1.5 )
 z/z = 100
 

@@ -4,7 +4,7 @@ extends Node2D
 signal card_selected(card)
 signal card_played
 
-const deck = ["soldier", "tank", "helicopter", "airplane", "ship", "wall", "submarine", "bigtank", "rocketlauncher", "spidertank"]
+const deck = ["soldier", "tank", "helicopter", "airplane", "ship", "wall", "submarine", "bigtank", "rocketlauncher", "spidertank", "quicktank", "bugcannon", "arrowplane", "breadcannon"]
 
 export (String, "red", "blue") var side = "red"
 

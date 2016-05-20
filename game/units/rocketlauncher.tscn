@@ -17,7 +17,6 @@ bullet_prefab = "res://projectiles/rocket.tscn"
 [node name="HitZone" parent="Visual"]
 
 transform/pos = Vector2( -11.618, -104 )
-polygon = Vector2Array( 15.6181, -276, -48.3819, -244, -80.3819, -180, -48.3819, -116, 14.7814, -84.0001, 79.6181, -116, 111.618, -180, 79.6181, -244 )
 
 [node name="Sprite" parent="Visual"]
 

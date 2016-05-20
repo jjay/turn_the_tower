@@ -13,10 +13,6 @@ life_time = 20.0
 hit_rate = 0.8
 cost = 3
 
-[node name="HitZone" parent="Visual"]
-
-polygon = Vector2Array( 9.23184e-005, -528, -32, 0, 32, 0 )
-
 [node name="Sprite" parent="Visual"]
 
 texture = ExtResource( 2 )

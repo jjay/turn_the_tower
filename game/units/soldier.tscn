@@ -11,10 +11,6 @@ total_health = 120.0
 life_time = 20.0
 cost = 1
 
-[node name="HitZone" parent="Visual"]
-
-polygon = Vector2Array( -32, 0, 32, 0, 112, -224, 80.0001, -356, 6.86646e-005, -404, -79.9999, -356, -112, -224 )
-
 [node name="Sprite" parent="Visual"]
 
 texture = ExtResource( 2 )

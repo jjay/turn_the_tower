@@ -13,10 +13,6 @@ hit_rate = 0.5
 cost = 8
 bullet_prefab = "res://projectiles/laser.tscn"
 
-[node name="HitZone" parent="Visual"]
-
-polygon = Vector2Array( -15.9998, -960, -16, -2.79753e-006, 16, 2.79753e-006, 16.0002, -960 )
-
 [node name="Sprite" parent="Visual"]
 
 texture = ExtResource( 2 )

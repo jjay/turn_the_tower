@@ -12,10 +12,6 @@ life_time = 20.0
 hit_rate = 0.75
 cost = 5
 
-[node name="HitZone" parent="Visual"]
-
-polygon = Vector2Array( -16, -2.79753e-006, 16, 2.79753e-006, 32.0001, -560, 0.000106812, -608, -31.9999, -560 )
-
 [node name="Sprite" parent="Visual"]
 
 transform/scale = Vector2( 0.35, 0.35 )
