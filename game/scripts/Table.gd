@@ -5,6 +5,7 @@ signal cell_pressed(cell)
 signal card_played(side, name, cell)
 signal unit_rotated(cell, rotation)
 signal rotation_complete(cell)
+signal unit_removed(cell)
 
 # member variables here, example:
 # var a=2
@@ -25,7 +26,6 @@ func play_card(cell):
 	var card = cell.hovered_card
 	var hand = card.hand
 	var unit = put_unit(cell.side, card.unit_name, cell.get_index())
-	unit.set_dragging(false)
 	
 	hand.money.remove_coins(card.cost)
 	emit_signal("card_played", cell.side, card.unit_name, cell.get_index())
@@ -41,13 +41,6 @@ func put_unit(side, unit_name, index):
 	unit.set_side(side)
 	cell.set_unit(unit)
 	var base_name
-	if side == "blue":
-		base_name = "RedBase"
-	else:
-		base_name = "BlueBase"
-	
-	unit.look_at(get_node(base_name).get_global_pos())
-
 	return unit
 	
 func rotate_unit(cell_index, rotation):

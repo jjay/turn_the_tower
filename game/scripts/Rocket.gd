@@ -18,14 +18,7 @@ func _ready():
 		set_rot(rand_range(0, 2*PI))
 	
 func _process(delta):
-	if target == null || !target.is_inside_tree():
-		for t in targets:
-			if t != null && t.is_inside_tree():
-				target = t
-	if target == null || !target.is_inside_tree():
-		call_deferred("destroy")
-		return
-	
+	return
 	var dir = Vector2(0, 1).rotated(get_rot())
 	var req = (target.get_table_pos() - get_pos()).normalized()
 	var angle =  req.angle_to(dir)
@@ -39,7 +32,6 @@ func _process(delta):
 func destroy():
 	set_process(false)
 	view.hide()
-	targets.clear()
 	explosion.explode()
 	smoke.set_emitting(false)
 	var timer = Timer.new()

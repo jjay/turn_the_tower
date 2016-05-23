@@ -1,7 +1,10 @@
 
 extends Area2D
 
-signal target_found(target)
+signal targets_in_polygon_found(targets)
+signal aim_requested(source)
+signal aimed(target)
+signal target_selected(target)
 signal ready
 
 export var shoot_bullets = true
@@ -13,18 +16,23 @@ export (float) var die_delay = 0
 export (float) var hit_rate = 1
 export var cost = 3
 export var wait_for_game = false
+export var aiming_speed = PI
 export (String, FILE, "*.tscn") var bullet_prefab
+export (String, "nearest_first", "nearest_last", "aggressive_first", "aggresive_last") var target_selection_order = "nearest_first"
+export (String, "red", "blue") var unit_side = "red"
 
 
+onready var Yield = get_node("/root/yield")
 onready var game = get_node("/root/Game")
 onready var sprite = get_node("Visual/Sprite")
 onready var hit_zone = get_node("Visual/HitZone")
 onready var hit_timer = get_node("HitTimer")
 onready var health_bar = get_node("Visual/HealthBar")
 onready var animation = get_node ("Visual/Sprite/AnimationPlayer")
+onready var aim_process = get_node("AimProcess")
 
 var show_hit_zone = false
-var dragging = false
+var aiming = false
 var health
 
 # public
@@ -33,11 +41,11 @@ var card
 var lifes = 0
 var rotated = false
 var unit_name = "default"
-var unit_side = "red"
+var aiming_target
+var selected_target
 
 
 func _ready():
-	
 	add_to_group(unit_side + "_unit")
 
 	health = total_health
@@ -45,6 +53,7 @@ func _ready():
 	health_bar.set_missed_life(0)
 	health_bar.set_damage_value(0)
 	hit_timer.set_wait_time(hit_rate)
+	aim_process.add_user_signal("tween_cancel")
 	
 	if shoot_bullets:
 		animation.play("@UnitAbleToRotate")
@@ -55,14 +64,21 @@ func _ready():
 	
 	if wait_for_game:
 		yield(game, "ready")
+		
+	#if side == "blue":
+	#	base_name = "RedBase"
+	#else:
+	#	base_name = "BlueBase"
 	
-	if show_hit_zone:
-		hit_zone.show()
-	
+	look_at(game.table.get_node(enemy_side().capitalize() + "Base").get_global_pos())
+
 	call_deferred("die_process")
 	if shoot_bullets:
+		select_target()
 		call_deferred("shoot_process")
-	#animate_creation()
+
+	game.table.connect("card_played", self, "on_unit_enter")
+	game.table.connect("unit_removed", self, "on_unit_exit")
 	emit_signal("ready")
 
 func set_side(side):
@@ -86,32 +102,7 @@ func animate_creation():
 	tween.interpolate_property(sprite, "transform/scale", from, to, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	yield(tween, "tween_complete")
 	tween.interpolate_property(sprite, "transform/scale", to, from, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	
-	
-
-func _input_event(viewport, event, shape_idx):
-	if dragging:
-		return
-	
-	if rotated:
-		return
-	
-	if event.type == InputEvent.MOUSE_BUTTON && event.is_pressed():
-		set_dragging(true)
-		return
 		
-func _input(event):
-	if !dragging:
-		return
-	
-	if event.type == InputEvent.MOUSE_MOTION:
-		look_at(event.pos)
-		game.table.emit_signal("unit_rotated", get_cell().get_index(), get_rot())
-		rotated = true
-	elif event.type == InputEvent.MOUSE_BUTTON && !event.is_pressed():
-		if shoot_bullets:
-			animation.play("@UnitIdle")
-		set_dragging(false)
 
 
 func take_damage(damage):
@@ -121,8 +112,10 @@ func take_damage(damage):
 		call_deferred("remove")
 
 func remove():
+	var index = get_cell().get_index()
 	var p = get_parent()
 	p.remove_child(self)
+	game.table.emit_signal("unit_removed", index) 
 
 func get_cell():
 	return get_parent().get_parent()
@@ -130,79 +123,85 @@ func get_cell():
 func get_table_pos():
 	return get_cell().get_pos()
 	
-func set_dragging(value):
-	if value && !shoot_bullets:
-		return
-	dragging = value
-	hit_zone.set_hidden(!value)
-	set_process_input(value)
-	if rotated && !value:
-		game.table.emit_signal("rotation_complete", get_cell().get_index())
 
-func _fixed_process(delta):
-	var request = Physics2DShapeQueryParameters.new()
-	if get_cell().side == "red":
-		request.set_layer_mask(2)
+func enemy_side():
+	if unit_side == "red":
+		return "blue"
 	else:
-		request.set_layer_mask(1)
-	request.set_object_type_mask(Physics2DDirectSpaceState.TYPE_MASK_AREA)
-	var shape = ConvexPolygonShape2D.new()
-	var poly = get_node("Visual/HitZone")
-	shape.set_points(poly.get_polygon())
-	#var shape = CircleShape2D.new()
-	#shape.set_radius(500)
-	request.set_shape(shape)
-	request.set_transform(poly.get_global_transform())
-	var result = get_world_2d().get_direct_space_state().intersect_shape(request)
-	var targets = []
-	for result_item in result:
-		if !(result_item["collider"] extends get_script()):
-			continue
-		targets.append(result_item["collider"])
-		
-		#var pos = result_item["collider"].get_table_pos()
-		#if nearest == null:
-		#	nearest = pos
-		#elif get_table_pos().distance_to(pos) < get_table_pos().distance_to(nearest):
-		#	nearest = pos
-	targets.sort_custom(self, "sort_targets")
-
-	set_fixed_process(false)
-	emit_signal("target_found", targets)
+		return "red"
+	
 
 func sort_targets(a, b):
 	var tb = get_table_pos()
 	return tb.distance_squared_to(a.get_table_pos()) < tb.distance_squared_to(b.get_table_pos())
+
+func on_unit_enter(side, name, cell_idx):
+	var cell = game.table.cells.get_child(cell_idx)
+	if side == unit_side:
+		return
+	select_target()
+
+func on_unit_exit(cell_idx):
+	var cell = game.table.cells.get_child(cell_idx)
+	if cell.side == unit_side:
+		return
+	select_target()
 	
+func select_target():
+	if !is_inside_tree():
+		return
+		
+	var targets = get_tree().get_nodes_in_group(enemy_side() + "_unit")
+	targets.sort_custom(self, target_selection_order)
+	if selected_target != targets[0]:
+		selected_target = targets[0]
+		request_aiming()
+
+func request_aiming():
+	aiming_target = selected_target	
+	var tween_ease = Tween.EASE_IN_OUT
+	if aim_process.is_active():
+		aim_process.emit_signal("tween_cancel")
+		aim_process.remove_all()
+		tween_ease = Tween.EASE_OUT
+	
+	var rot = get_rot() + 2*PI
+	var trot = (selected_target.get_table_pos() - get_table_pos()).angle()
+	while rot > trot:
+		trot += 2*PI
+	
+	if trot - rot > PI:
+		trot -= 2*PI
+	
+	
+	var time = abs(trot-rot) / aiming_speed
+	if time < 0.05:
+		aiming_target = null
+		return
+		
+	print("[AIMING] start curr_rot: " + str(rot) + ", req_rot:" + str(trot) + ", time: " + str(time))
+
+	aim_process.interpolate_property(self, "transform/rot", rad2deg(rot), rad2deg(trot), time, Tween.TRANS_SINE, tween_ease)
+	aim_process.start()
+	var async_result = Yield.first(aim_process, "tween_complete", "tween_cancel")
+	var res = yield(async_result, "complete")
+	print("[AIMING] aim complete with " + res)
+	if "tween_complete" == res:
+		aiming_target = null
+		emit_signal("aimed", selected_target)
+
+func has_valid_target():
+	return selected_target != null && selected_target.is_inside_tree()
+
 func shoot_process():
-	while true:
+	hit_timer.start()
+	while is_inside_tree():
+		if has_valid_target() && !aiming_target:
+			var projectile = load(bullet_prefab).instance()
+			projectile.setup(game.table, self)
+		elif !has_valid_target():
+			select_target()
 		yield(hit_timer, "timeout")
-		if dragging:
-			continue
-		
-		set_fixed_process(true)
-		var targets = yield(self, "target_found")
-
-		if targets.size() == 0:
-			print("No targets found, won't shoot")
-			continue
-
-		var bullet = load(bullet_prefab).instance()
-		bullet.setup_targets(game.table, self, targets)
-		
-
-		#var direction = (targets[0].get_table_pos() - get_table_pos()).normalized()
-		#bullet.set_collision_mask(get_collision_mask())
-		#bullet.targets = targets
-		#game.table.add_child(bullet)
-		#bullet.set_pos(get_cell().get_pos())
-		#bullet.set_rot(get_rot())
-		#bullet.set_scale(Vector2(2,2))
-		#bullet.damage = damage
-		#var v = direction * bullet_speed
-		#bullet.set_linear_velocity(v)
-		#game.table.emit_signal("unit_shoot", get_cell().get_index(), v)
-		
 
 func die_process():
 	var timer = Timer.new()
@@ -213,3 +212,10 @@ func die_process():
 	while true:
 		yield(timer, "timeout")
 		take_damage(total_health/life_time)
+	
+func nearest_first(a, b):
+	var p = get_table_pos()
+	return p.distance_squared_to(a.get_table_pos()) < p.distance_squared_to(b.get_table_pos())
+	
+func nearest_last(a, b):
+	return nearest_first(b, a)

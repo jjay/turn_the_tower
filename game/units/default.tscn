@@ -13,7 +13,6 @@ points = Vector2Array( 40, 40, -40, 40, -40, -40, 40, -40 )
 
 [node name="Area2D" type="Area2D"]
 
-transform/rot = 180.0
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -34,7 +33,12 @@ die_delay = 0
 hit_rate = 1
 cost = 2
 wait_for_game = false
+aiming_speed = 1.0
 bullet_prefab = "res://projectiles/bullet.tscn"
+initial_targets = "any"
+aim_trigger = "shoot"
+target_selection_order = "nearest_first"
+unit_side = "red"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -46,27 +50,14 @@ trigger = false
 [node name="Visual" type="Node2D" parent="."]
 
 transform/rot = 180.0
-
-[node name="HitZone" type="Polygon2D" parent="Visual"]
-
-visibility/visible = false
-z/z = 1
-polygon = Vector2Array( -929.578, -1212.82, -896.85, 803.726, 976.196, 773.515, 1041.65, -1157.43 )
-uv = Vector2Array(  )
-color = Color( 0.875, 0.146973, 0.146973, 0 )
-offset = Vector2( 0, 0 )
-texture/texture = null
-texture/offset = Vector2( 0, 0 )
-texture/scale = Vector2( 1, 1 )
-texture/rotation = 0.0
-invert/enable = false
-invert/border = 100.0
+__meta__ = { "_editor_collapsed":true }
 
 [node name="Sprite" type="Sprite" parent="Visual"]
 
 transform/scale = Vector2( 0.3, 0.3 )
 z/z = 2
 texture = ExtResource( 2 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visual/Sprite"]
 
@@ -82,7 +73,7 @@ autoplay = ""
 
 [node name="HealthBar" parent="Visual" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 7.62939e-006, -40 )
+transform/pos = Vector2( 7.62939e-06, -40 )
 transform/scale = Vector2( 1.5, 1.5 )
 z/z = 100
 
@@ -92,5 +83,25 @@ process_mode = 1
 wait_time = 0.3
 one_shot = false
 autostart = true
+
+[node name="AimProcess" type="Tween" parent="."]
+
+playback/process_mode = 1
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+polygon = Vector2Array( 10, 0, -10, 0, -10, 70, -20, 70, 0, 90, 20, 70, 10, 70 )
+uv = Vector2Array(  )
+color = Color( 1, 1, 1, 1 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
 
 

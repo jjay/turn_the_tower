@@ -1,9 +1,8 @@
 
-extends Area2D
+extends "BaseBullet.gd"
 
 signal hit_targets(targets)
 
-var damage = 0
 var layer_mask
 # member variables here, example:
 # var a=2
@@ -15,14 +14,7 @@ func _ready():
 	print("Created laser")
 	yield(anim, "finished")
 	get_parent().remove_child(self)
-
-func setup_targets(parent, unit, new_targets):
-	#type_mask = unit.get_collision_mask()
-	layer_mask = unit.get_collision_mask()
-	damage = unit.damage
-	set_rot(unit.get_rot())
-	set_pos(unit.get_table_pos())
-	parent.add_child(self)
+	
 	
 func _fixed_process(delta):
 	var state = get_world_2d().get_direct_space_state()
@@ -43,7 +35,6 @@ func _fixed_process(delta):
 		e.set_global_pos(result["position"])
 		#print("Hitting " + str(result["collider"]))
 		
-		
 
 	set_fixed_process(false)
 	
@@ -51,6 +42,10 @@ func _fixed_process(delta):
 func make_damage():
 	print("Make damage with laser")
 	set_fixed_process(true)
+
+func setup(parent, unit):
+	.setup(parent, unit)
+	layer_mask = unit.get_collision_mask()
 	
 	
 

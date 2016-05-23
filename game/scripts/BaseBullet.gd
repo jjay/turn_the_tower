@@ -1,13 +1,12 @@
 tool
 extends Area2D
 
-export (float) var start_speed
-export (float) var max_speed
-export (float) var acceleration
+export (float) var start_speed = 0
+export (float) var max_speed = 0
+export (float) var acceleration = 0
 export (float) var damage_radius = 0 setget set_damage_radius
 
 var damage
-var targets = []
 var speed
 var _last_aoe_pos
 
@@ -43,20 +42,17 @@ func _process(delta):
 		var new_dir = Vector2(0, 1).rotated(get_rot()) * delta * speed
 		translate(new_dir)
 
-func setup_targets(parent, unit, new_targets):
+func setup(parent, unit):
 	set_process(true)
-	targets = new_targets
 	damage = unit.damage
 	max_speed = unit.bullet_speed
 	set_collision_mask(unit.get_collision_mask())
 	set_pos(unit.get_table_pos())
-	look_at(targets[0].get_table_pos())
+	set_rot(unit.get_rot())
 	parent.add_child(self)
 	
 func make_damage(unit):
-	if targets.find(unit) == -1:
-		return
-	
+
 	if damage_radius == 0:
 		unit.take_damage(damage)		
 	else: # find all enemy units in radius
