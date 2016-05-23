@@ -9,7 +9,7 @@ linear_damp = 0.1
 bullet_speed = 400.0
 damage = 50.0
 total_health = 240.0
-life_time = 20.0
+life_time = 30.0
 hit_rate = 1.25
 
 [node name="Sprite" parent="Visual"]
