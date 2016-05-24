@@ -15,7 +15,7 @@ func _ready():
 		explode()
 	
 	yield(animator, "finished")
-	emit_signal("exploded")
+	call_deferred("emit_signal", "exploded")
 	
 	if autoremove:
 		get_parent().remove_child(self)

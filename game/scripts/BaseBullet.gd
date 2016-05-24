@@ -65,6 +65,8 @@ func make_damage(unit):
 		
 	
 func destroy():
+	if !is_inside_tree():
+		return
 	set_process(false)
 	view.hide()
 	explosion.explode()

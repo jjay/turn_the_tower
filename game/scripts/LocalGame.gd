@@ -14,12 +14,15 @@ func _ready():
 
 var have_loser = false
 func set_loser(side):
+	remove_child(get_node("Table"))
+	remove_child(get_node("BlueHand"))
+	remove_child(get_node("RedHand"))
 	if have_loser:
 		return
 	have_loser = true
 	gui.show()
 	gui.set_text(side.capitalize() + " player LOSE!")
-	table.stop_game()
+	#table.stop_game()
 	gui.show_button()
 	yield(gui.button, "pressed")
 	var root = get_parent()

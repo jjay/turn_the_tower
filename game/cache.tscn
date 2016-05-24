@@ -6,7 +6,7 @@
 [node name="Cache" type="Node2D"]
 
 script/script = ExtResource( 1 )
-start_coins = 0
+start_coins = 4
 
 [node name="Timer" type="Timer" parent="."]
 
