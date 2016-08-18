@@ -19,6 +19,8 @@ func _ready():
 	table.connect("unit_rotated", remote_player, "rotate_unit")
 	remote_player.connect("rotation_complete", table, "on_rotation_complete")
 	table.connect("rotation_complete", remote_player, "on_rotation_complete")
+	remote_player.connect("unit_removed", table, "remove_unit")
+	table.connect("unit_removed", remote_player, "remove_unit")
 		
 	gui.show_body()
 	gui.hide_button()

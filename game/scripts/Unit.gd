@@ -111,11 +111,12 @@ func take_damage(damage):
 	if health <= 0:
 		call_deferred("remove")
 
-func remove():
+func remove(emit_removed=true):
 	var index = get_cell().get_index()
 	var p = get_parent()
 	p.remove_child(self)
-	game.table.emit_signal("unit_removed", index) 
+	if emit_removed:
+    	game.table.emit_signal("unit_removed", index) 
 
 func get_cell():
 	return get_parent().get_parent()

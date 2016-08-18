@@ -7,6 +7,7 @@ signal started
 signal card_played(side, name, cell)
 signal unit_rotated(cell, rotation)
 signal rotation_complete(cell)
+signal unit_removed(cell)
 
 
 export var server_host = "127.0.0.1"
@@ -70,6 +71,8 @@ func send_ready():
 	send("ready")
 	
 func put_unit(side, name, index):
+	if side == "blue":
+		return
 	send_to_opponent("card_played", [name, 19 - index])
 
 func _handle_card_played(name, index):
@@ -80,11 +83,18 @@ func rotate_unit(cell, rotation):
 
 func _handle_unit_rotated(cell, rotation):
 	emit_signal("unit_rotated", cell, rotation)
+
+func remove_unit(cell):
+	send_to_opponent("unit_removed", [19 - cell])
+func _handle_unit_removed(cell):
+	emit_signal("unit_removed", cell)
+
 		
 func send_win():
 	send_to_opponent("win")
 func send_lose():
 	send_to_opponent("lose")
+
 
 func _handle_win():
 	game.set_loser("blue")
@@ -96,3 +106,4 @@ func on_rotation_complete(cell):
 	send_to_opponent("rotation_complete", [19-cell])
 func _handle_rotation_complete(cell):
 	emit_signal("rotation_complete", cell)
+	

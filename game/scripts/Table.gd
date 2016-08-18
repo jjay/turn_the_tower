@@ -28,7 +28,7 @@ func play_card(cell):
 	var unit = put_unit(cell.side, card.unit_name, cell.get_index())
 	
 	hand.money.remove_coins(card.cost)
-	emit_signal("card_played", cell.side, card.unit_name, cell.get_index())
+	
 
 	
 func put_unit(side, unit_name, index):
@@ -40,7 +40,7 @@ func put_unit(side, unit_name, index):
 	unit.set_unit_name(unit_name)
 	unit.set_side(side)
 	cell.set_unit(unit)
-	var base_name
+	emit_signal("card_played", side, unit_name, index)
 	return unit
 	
 func rotate_unit(cell_index, rotation):
@@ -60,4 +60,8 @@ func on_rotation_complete(cell_index):
 	if unit == null:
 		return
 	unit.get_node("Visual/Sprite").set_modulate(Color("8b8b8b"))
-	
+
+func remove_unit(cell_idx):
+	var unit = cells.get_child(cell_idx).get_unit()
+	if unit:
+		unit.remove(false)

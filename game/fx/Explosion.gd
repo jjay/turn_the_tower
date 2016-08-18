@@ -7,9 +7,11 @@ export var autoplay = true
 export var autoremove = true
 onready var animator = get_node("AnimationPlayer")
 
+
 func _ready():
 	var animation = animator.get_animation("explosion")
 	print(str(duration), str(animation.get_length()), str(duration/animation.get_length()))
+	
 	animator.set_speed(animation.get_length()/duration)
 	if autoplay:
 		explode()
@@ -22,3 +24,8 @@ func _ready():
 	
 func explode():
 	animator.play("explosion")
+	
+class Thing:
+	func __read__():
+		pass
+	

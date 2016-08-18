@@ -22,6 +22,10 @@ random_direction = false
 duration = 0.8
 autoplay = false
 
+[node name="AoeDamage" parent="."]
+
+transform/pos = Vector2( 0, 72 )
+
 [node name="Smoke" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 0.643913, -17.0543 )
